@@ -65,8 +65,6 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
             }
         });
 
-        jPasswordField1.setText("jPasswordField1");
-
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo_feifood.jpg"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

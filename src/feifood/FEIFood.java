@@ -8,13 +8,17 @@ package feifood;
  *
  * @author tex
  */
-public class FEIFood {
 
-    /**
-     * @param args the command line arguments
-     */
+
+import view.LoginView;
+import view.TelaPrincipalUsuarioView;
+
+public class FEIFood {
     public static void main(String[] args) {
-        // TODO code application logic here
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new TelaPrincipalUsuarioView().setVisible(true);
+            }
+        });
     }
-    
 }

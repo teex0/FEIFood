@@ -6,16 +6,16 @@ package view;
 
 /**
  *
- * @author tex
+ * @author robof
  */
-public class AvaliacaoView extends javax.swing.JFrame {
+public class Carrinho extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AvaliacaoView.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Carrinho.class.getName());
 
     /**
-     * Creates new form AvaliacaoView
+     * Creates new form Carrinho
      */
-    public AvaliacaoView() {
+    public Carrinho() {
         initComponents();
     
     jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -36,19 +36,19 @@ public class AvaliacaoView extends javax.swing.JFrame {
     });
 
     // 🟢 Exemplo: abrir perfil de usuário ao clicar no menu 5
-    jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            new Carrinho().setVisible(true);
-            dispose();
-        }
-    });
-        
-        
     jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
         @Override
         public void mouseClicked(java.awt.event.MouseEvent evt) {
             new TelaPrincipalUsuarioView().setVisible(true);
+            dispose(); // opcional: fecha a tela atual
+        }
+    });
+        
+        
+    jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            new AvaliacaoView().setVisible(true);
             dispose();
         }
     });
@@ -81,10 +81,10 @@ public class AvaliacaoView extends javax.swing.JFrame {
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/aaaa.jpg"))); // NOI18N
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/carrinho.jpg"))); // NOI18N
         jMenuBar1.add(jMenu4);
 
-        jMenu5.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.jpg"))); // NOI18N
         jMenuBar1.add(jMenu5);
 
@@ -107,27 +107,27 @@ public class AvaliacaoView extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-//            logger.log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(() -> new AvaliacaoView().setVisible(true));
-//    }
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> new Carrinho().setVisible(true));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
