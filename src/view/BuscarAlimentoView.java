@@ -28,14 +28,6 @@ public class BuscarAlimentoView extends javax.swing.JFrame {
         }
     });
 
-    // 🟢 Exemplo: abrir o carrinho ao clicar no menu 4
-    jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            new PedidoView().setVisible(true);
-            dispose();
-        }
-    });
 
     // 🟢 Exemplo: abrir perfil de usuário ao clicar no menu 5
     jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -79,7 +71,6 @@ public class BuscarAlimentoView extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
 
@@ -210,9 +201,6 @@ public class BuscarAlimentoView extends javax.swing.JFrame {
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lupa_logo.png"))); // NOI18N
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/aaaa.png"))); // NOI18N
-        jMenuBar1.add(jMenu3);
-
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/carrinho.png"))); // NOI18N
         jMenuBar1.add(jMenu4);
 
@@ -332,7 +320,6 @@ public class BuscarAlimentoView extends javax.swing.JFrame {
     private javax.swing.JButton jButton9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
