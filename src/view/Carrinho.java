@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,8 +16,14 @@ public class Carrinho extends javax.swing.JFrame {
     /**
      * Creates new form Carrinho
      */
+    public Carrinho(String itens) {
+    initComponents();          // inicializa todos os componentes
+    jTextArea1.setText(itens); // agora você consegue mostrar os itens
+}
+    
     public Carrinho() {
         initComponents();
+        
     
     jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
         @Override
@@ -82,6 +89,11 @@ public class Carrinho extends javax.swing.JFrame {
         });
 
         jButton2.setText("Finalizar compra");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home.png"))); // NOI18N
         jMenuBar1.add(jMenu1);
@@ -133,33 +145,30 @@ public class Carrinho extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        jTextArea1.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    if (jTextArea1.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "O carrinho está vazio! Adicione itens antes de finalizar a compra.");
+            new TelaPrincipalUsuarioView().setVisible(true);
+        dispose(); // fecha o carrinho
+        return;
+
+    }
+
+    // Se não estiver vazio, continua com a finalização da compra
+    JOptionPane.showMessageDialog(this, "Obrigado pela sua compra!", "Compra Concluída", JOptionPane.INFORMATION_MESSAGE);
+
+    // Redireciona para a tela de avaliação
+    new AvaliacaoView().setVisible(true);
+    dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Carrinho().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

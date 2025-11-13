@@ -10,9 +10,6 @@ import model.Usuario;
 import view.LoginView;
 import view.TelaPrincipalUsuarioView;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class UsuarioController {
@@ -26,49 +23,44 @@ public class UsuarioController {
     public void loginUsuario() {
         // Cria o objeto Usuario com os dados digitados na tela
         Usuario usuario = new Usuario();
-        usuario.setEmail(telaLogin.getTxtUsuario().getText()); // login por e-mail
-        usuario.setSenha(telaLogin.getTxtSenha().getText());
+        usuario.setUsuario(telaLogin.getTxtUsuario().getText().trim()); // login por nome de usuário
+        usuario.setSenha(new String(telaLogin.getTxtSenha().getPassword()));
 
-        // Tenta conectar ao banco e validar login
-        try (Connection conn = ConnectionFactory.getConnection()) {
-            UsuarioDAO dao = new UsuarioDAO(conn);
-            ResultSet res = dao.consultar(usuario);
-
-            if (res.next()) {
-                JOptionPane.showMessageDialog(
-                    telaLogin,
-                    "Login realizado com sucesso!",
-                    "Aviso",
-                    JOptionPane.INFORMATION_MESSAGE
-                );
-
-                // Pega os dados do usuário logado
-                String nome = res.getString("nome");
-                String email = res.getString("email");
-                String senha = res.getString("senha");
-
-                // Abre a tela principal do usuário
-                TelaPrincipalUsuarioView telaPrincipal = new TelaPrincipalUsuarioView();
-                telaPrincipal.setUsuarioLogado(nome, email, senha);
-                telaPrincipal.setVisible(true);
-                telaLogin.dispose();
-
-                telaPrincipal.setVisible(true);
-                telaLogin.dispose(); // fecha a tela de login
-
-            } else {
-                JOptionPane.showMessageDialog(
-                    telaLogin,
-                    "Usuário ou senha incorretos.",
-                    "Erro",
-                    JOptionPane.ERROR_MESSAGE
-                );
-            }
-
-        } catch (SQLException e) {
+        if (usuario.getUsuario().isEmpty() || usuario.getSenha().isEmpty()) {
             JOptionPane.showMessageDialog(
                 telaLogin,
-                "Erro ao conectar com o banco de dados:\n" + e.getMessage(),
+                "Preencha usuário e senha!",
+                "Aviso",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        // Tenta validar login usando o DAO
+        UsuarioDAO dao = new UsuarioDAO();
+        Usuario usuarioLogado = dao.consultar(usuario);
+
+        if (usuarioLogado != null) {
+            JOptionPane.showMessageDialog(
+                telaLogin,
+                "Login realizado com sucesso!",
+                "Aviso",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+
+            // Abre a tela principal do usuário
+            TelaPrincipalUsuarioView telaPrincipal = new TelaPrincipalUsuarioView();
+            telaPrincipal.setUsuarioLogado(
+                usuarioLogado.getNome(),
+                usuarioLogado.getUsuario(),
+                usuarioLogado.getSenha()
+            );
+            telaPrincipal.setVisible(true);
+            telaLogin.dispose(); // fecha a tela de login
+        } else {
+            JOptionPane.showMessageDialog(
+                telaLogin,
+                "Usuário ou senha incorretos.",
                 "Erro",
                 JOptionPane.ERROR_MESSAGE
             );

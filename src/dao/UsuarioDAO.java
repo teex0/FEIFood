@@ -6,51 +6,54 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.ResultSet;
-
+import java.sql.SQLException;
 import model.Usuario;
 
+
 public class UsuarioDAO {
+    
     private Connection conn;
 
-    public UsuarioDAO(Connection conn){
-        this.conn = conn;
-    }
+    // Consulta usuário pelo login e senha, retornando o objeto Usuario completo
+    public Usuario consultar(Usuario usuario) {
+        String sql = "SELECT * FROM usuarios WHERE usuario = ? AND senha = ?";
 
-    public ResultSet consultar(Usuario usuario) throws SQLException{
-        String sql = "select * from tbusuarios where usuario = ? and senha = ?";
-        PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1, usuario.getEmail());
-        statement.setString(2, usuario.getSenha());
-        ResultSet resultado = statement.getResultSet();
-        return resultado;
-    }
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-    public void inserir(Usuario usuario) throws SQLException{
-        String sql = "insert into tbusuarios (nome, usuario, senha) values ('"
-            + usuario.getNome() + "', '"
-            + usuario.getEmail() + "', '"
-            + usuario.getSenha() + "')";
-        PreparedStatement statement = conn.prepareStatement(sql);
-        statement.execute();
-        conn.close();
-    }
+            stmt.setString(1, usuario.getUsuario());
+            stmt.setString(2, usuario.getSenha());
 
-    public void atualizar(Usuario usuario) throws SQLException{
-        String sql = "update tbusuarios set senha = ? where usuario = ?";
-        PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1, usuario.getSenha());
-        statement.setString(2, usuario.getEmail());
-        statement.execute();
-        conn.close();
-    }
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Usuario u = new Usuario();
+                    u.setNome(rs.getString("nome"));
+                    u.setUsuario(rs.getString("usuario"));
+                    u.setSenha(rs.getString("senha"));
+                    return u;
+                }
+            }
 
-    public void remover(Usuario usuario) throws SQLException{
-        String sql = "delete from tbusuarios where usuario = ?";
-        PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1, usuario.getEmail());
-        statement.execute();
-        conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null; // retorna null se usuário não encontrado
+    }
+    
+        public boolean cadastrarUsuario(Usuario usuario) {
+        String sql = "INSERT INTO usuarios (nome, usuario, senha) VALUES (?, ?, ?)";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, usuario.getNome());
+            stmt.setString(2, usuario.getUsuario());
+            stmt.setString(3, usuario.getSenha());
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

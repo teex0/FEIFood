@@ -3,6 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+import dao.AlimentoDAO;
+import model.Alimento;
+import java.util.List;
+import javax.swing.*;
+
 
 /**
  *
@@ -83,6 +88,11 @@ public class BuscarAlimentoView extends javax.swing.JFrame {
         });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lupa_logo.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton8.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/el cacto.png"))); // NOI18N
@@ -239,7 +249,29 @@ public class BuscarAlimentoView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
+            String nomeBusca = jTextField1.getText().trim();
+    if (nomeBusca.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Digite o nome do alimento para buscar!");
+        return;
+    }
+
+    AlimentoDAO dao = new AlimentoDAO();
+    List<Alimento> resultados = dao.buscarPorNome(nomeBusca);
+
+    if (resultados.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Nenhum alimento encontrado.");
+    } else {
+        StringBuilder sb = new StringBuilder("🍽️ Alimentos encontrados:\n\n");
+        for (Alimento a : resultados) {
+            sb.append(" - ")
+              .append(a.getAlimento())
+              .append(" (").append(a.getEstabelecimento()).append(")")
+              .append(" R$ ").append(a.getPreco())
+              .append("\n");
+        }
+
+        JOptionPane.showMessageDialog(this, sb.toString());
+    }
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -283,6 +315,32 @@ public class BuscarAlimentoView extends javax.swing.JFrame {
     sushiFrame.setVisible(true);
     this.dispose(); // Fecha o JFrame atual
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    String nomeBusca = jTextField1.getText().trim();
+    if (nomeBusca.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Digite o nome do alimento para buscar!");
+        return;
+    }
+
+    AlimentoDAO dao = new AlimentoDAO();
+    List<Alimento> resultados = dao.buscarPorNome(nomeBusca);
+
+    if (resultados.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Nenhum alimento encontrado.");
+    } else {
+        // Monta uma mensagem com os restaurantes
+        StringBuilder sb = new StringBuilder("🍽️ O alimento '" + nomeBusca + "' está disponível em:\n\n");
+        for (Alimento a : resultados) {
+            sb.append(" - ").append(a.getEstabelecimento())
+              .append(" (").append(a.getAlimento()).append(")")
+              .append(" R$ ").append(a.getPreco())
+              .append("\n");
+        }
+        JOptionPane.showMessageDialog(this, sb.toString());
+    }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

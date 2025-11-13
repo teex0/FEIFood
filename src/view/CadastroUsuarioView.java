@@ -4,6 +4,16 @@
  */
 package view;
 
+import dao.UsuarioDAO;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import java.sql.SQLException;
+import java.sql.Connection;
+import dao.ConnectionFactory;
+import model.Usuario;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author tex
@@ -49,7 +59,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
         jLabel2.setText("Nome:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("Email: ");
+        jLabel3.setText("Usuário: ");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Senha:");
@@ -128,7 +138,35 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+      String nome = jTextPane1.getText().trim();
+    String usuario = jTextPane2.getText().trim();
+    String senha = new String(jPasswordField1.getPassword());
+
+    if (nome.isEmpty() || usuario.isEmpty() || senha.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
+        return;
+    }
+
+    try (Connection conn = ConnectionFactory.getConnection()) {
+        String sql = "INSERT INTO usuarios (nome, usuario, senha) VALUES (?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, nome);
+            stmt.setString(2, usuario);
+            stmt.setString(3, senha);
+
+            int linhas = stmt.executeUpdate();
+            if (linhas > 0) {
+                JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!");
+                this.dispose(); // Fecha a tela de cadastro
+                new LoginView().setVisible(true); // Abre a tela de login
+            } else {
+                JOptionPane.showMessageDialog(this, "Falha ao cadastrar usuário!");
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Erro ao acessar o banco de dados:\n" + e.getMessage());
+    }            
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

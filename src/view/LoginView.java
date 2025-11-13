@@ -4,8 +4,15 @@
  */
 package view;
 
+import dao.UsuarioDAO;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import java.sql.SQLException;
+import java.sql.Connection;
+import dao.ConnectionFactory;
+import model.Usuario;
+
 
 /**
  *
@@ -78,6 +85,11 @@ public class LoginView extends javax.swing.JFrame {
         });
 
         jButton2.setText("Cadastrar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setForeground(new java.awt.Color(0, 204, 0));
         jLabel3.setText("Não Possuí conta?");
@@ -137,12 +149,47 @@ public class LoginView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+String usuarioText = jTextField1.getText().trim();
+String senhaText = new String(jPasswordField1.getPassword());
+
+if (usuarioText.isEmpty() || senhaText.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Preencha usuário e senha!");
+    return;
+}
+
+// Cria objeto Usuario com os dados da tela
+Usuario usuario = new Usuario();
+usuario.setUsuario(usuarioText);
+usuario.setSenha(senhaText);
+
+// Usa o DAO para validar login
+UsuarioDAO dao = new UsuarioDAO();
+Usuario usuarioLogado = dao.consultar(usuario); // retorna Usuario ou null
+
+if (usuarioLogado != null) {
+    // Login válido, abre tela principal
+    TelaPrincipalUsuarioView telaPrincipal = new TelaPrincipalUsuarioView();
+    telaPrincipal.setUsuarioLogado(
+        usuarioLogado.getNome(),
+        usuarioLogado.getUsuario(),
+        usuarioLogado.getSenha()
+    );
+    telaPrincipal.setVisible(true);
+    dispose(); // fecha a tela de login
+} else {
+    JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos!");
+}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Abre a tela de cadastro
+    new CadastroUsuarioView().setVisible(true);
+    dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

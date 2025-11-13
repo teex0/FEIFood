@@ -10,15 +10,30 @@ package feifood;
  */
 
 
+import dao.ConnectionFactory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import view.BuscarAlimentoView;
 import view.LoginView;
-import view.TelaPrincipalUsuarioView;
+
 
 public class FEIFood {
     public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaPrincipalUsuarioView().setVisible(true);
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (Exception e) {
+            System.out.println("⚠️ Não foi possível aplicar o tema Nimbus.");
+        }
+
+        // Abre a tela de login
+        java.awt.EventQueue.invokeLater(() -> {
+            new LoginView().setVisible(true);
         });
     }
 }

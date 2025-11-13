@@ -8,6 +8,78 @@ package model;
  *
  * @author tex
  */
+
 public class Alimento {
-    
+    private int codigoAlimento;
+    private String estabelecimento;
+    private String alimento;
+    private String tipo;
+    private String informacoes;
+    private double preco;
+    private boolean imposto;
+    private String composicao;
+
+    public int getCodigoAlimento() {
+        return codigoAlimento;
+    }
+
+    public void setCodigoAlimento(int codigoAlimento) {
+        this.codigoAlimento = codigoAlimento;
+    }
+
+    public String getEstabelecimento() {
+        return estabelecimento;
+    }
+
+    public void setEstabelecimento(String estabelecimento) {
+        this.estabelecimento = estabelecimento;
+    }
+
+    public String getAlimento() {
+        return alimento;
+    }
+
+    public void setAlimento(String alimento) {
+        this.alimento = alimento;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getInformacoes() {
+        return informacoes;
+    }
+
+    public void setInformacoes(String informacoes) {
+        this.informacoes = informacoes;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+    public boolean isImposto() {
+        return imposto;
+    }
+
+    public void setImposto(boolean imposto) {
+        this.imposto = imposto;
+    }
+
+    public String getComposicao() {
+        return composicao;
+    }
+
+    public void setComposicao(String composicao) {
+        this.composicao = composicao;
+    }
 }

@@ -10,9 +10,9 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/usuario"; 
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "adbc001";
+    private static final String URL = "jdbc:postgresql://ep-lucky-shape-aco9469o-pooler.sa-east-1.aws.neon.tech/neondb?sslmode=require";
+    private static final String USER = "neondb_owner";
+    private static final String PASSWORD = "npg_dIOjX10rzEWv";
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);

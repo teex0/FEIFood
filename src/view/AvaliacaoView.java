@@ -4,11 +4,20 @@
  */
 package view;
 
+import dao.AvaliacaoDAO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author tex
  */
 public class AvaliacaoView extends javax.swing.JFrame {
+        private int numeroPedido; // variável para armazenar o pedido atual
+
+    public AvaliacaoView(int numeroPedido) {
+        this.numeroPedido = numeroPedido;
+        initComponents();
+    }
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AvaliacaoView.class.getName());
 
@@ -130,7 +139,17 @@ public class AvaliacaoView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    int nota = jSlider1.getValue(); // pega a nota do slider
+
+    AvaliacaoDAO dao = new AvaliacaoDAO();
+    dao.salvarAvaliacao(nota); // salva no banco
+
+    // Mostra pop-up de agradecimento
+    javax.swing.JOptionPane.showMessageDialog(this, "Obrigado pela sua avaliação!", "Avaliação Registrada", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+    // Abre a TelaPrincipalUsuarioView e fecha a AvaliacaoView
+    new TelaPrincipalUsuarioView().setVisible(true);
+    dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

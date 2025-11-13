@@ -3,6 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+import dao.AlimentoDAO;
+import model.Alimento;
+import javax.swing.*;
+import java.util.List;
+
 
 /**
  *
@@ -17,7 +22,26 @@ public class Elcacto extends javax.swing.JFrame {
      */
     public Elcacto() {
         initComponents();
+    AlimentoDAO dao = new AlimentoDAO();
+    List<Alimento> itens = dao.buscarPorRestaurante("El Cacto"); // nome exato do restaurante
+
+    if (itens.isEmpty()) {
+        jTextArea3.setText("Nenhum alimento encontrado neste restaurante.");
+    } else {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID  -  Nome (Tipo) - Preço\n"); // cabeçalho
+        sb.append("-------------------------------\n");
+        for (Alimento a : itens) {
+            sb.append(a.getCodigoAlimento()) // aqui é o ID
+              .append(" - ")
+              .append(a.getAlimento())
+              .append(" (").append(a.getTipo()).append(")")
+              .append(" - R$ ").append(a.getPreco())
+              .append("\n");
+        }
+        jTextArea3.setText(sb.toString());
     }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -168,19 +192,111 @@ public class Elcacto extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+       String textoId = jTextField2.getText().trim();
+    if (textoId.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Digite o ID do produto para excluir!");
+        return;
+    }
+
+    int idProduto;
+    try {
+        idProduto = Integer.parseInt(textoId);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "ID inválido! Digite um número.");
+        return;
+    }
+
+    AlimentoDAO dao = new AlimentoDAO();
+    Alimento produto = dao.buscarPorId(idProduto); // método já criado no DAO
+
+    if (produto == null) {
+        JOptionPane.showMessageDialog(this, "Produto não encontrado!");
+        return;
+    }
+
+    // Remove do JTextArea do carrinho
+    String[] linhas = jTextArea1.getText().split("\n");
+    StringBuilder novoTexto = new StringBuilder();
+    boolean encontrado = false;
+    double total = 0.0;
+
+    for (String linha : linhas) {
+        if (linha.isBlank()) continue;
+
+        // Compara o nome do produto (mesma lógica do append)
+        if (linha.startsWith(produto.getAlimento() + " - R$")) {
+            encontrado = true;
+            continue; // pula esta linha
+        }
+
+        novoTexto.append(linha).append("\n");
+
+        // Atualiza o total
+        if (linha.contains("R$")) {
+            String precoStr = linha.substring(linha.indexOf("R$") + 2).trim();
+            total += Double.parseDouble(precoStr);
+        }
+    }
+
+    if (encontrado) {
+        jTextArea1.setText(novoTexto.toString());
+        jLabel4.setText("Total: R$ " + total);
+        JOptionPane.showMessageDialog(this, "Produto removido do carrinho!");
+    } else {
+        JOptionPane.showMessageDialog(this, "Produto não estava no carrinho!");
+    }
+
+    jTextField2.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       String textoId = jTextField2.getText().trim();
+    if (textoId.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Digite o ID do produto para adicionar!");
+        return;
+    }
+
+    int idProduto;
+    try {
+        idProduto = Integer.parseInt(textoId);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "ID inválido! Digite um número.");
+        return;
+    }
+
+    AlimentoDAO dao = new AlimentoDAO();
+    Alimento produto = dao.buscarPorId(idProduto); // método que vamos criar
+
+    if (produto == null) {
+        JOptionPane.showMessageDialog(this, "Produto não encontrado!");
+    } else {
+        // Adiciona no JTextArea do carrinho
+        String itemCarrinho = produto.getAlimento() + " - R$ " + produto.getPreco() + "\n";
+        jTextArea1.append(itemCarrinho);
+
+        // Opcional: atualizar total
+        double total = 0.0;
+        String[] linhas = jTextArea1.getText().split("\n");
+        for (String linha : linhas) {
+            if (!linha.isBlank() && linha.contains("R$")) {
+                String precoStr = linha.substring(linha.indexOf("R$") + 2).trim();
+                total += Double.parseDouble(precoStr);
+            }
+        }
+        jLabel4.setText("Total: R$ " + total);
+    }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Carrinho f2 = new Carrinho();
-        f2.setVisible(true);
-
-        // Fecha o JFrame atual
-        this.dispose();
+    // Pega tudo do textarea1 do Elcacto
+    String itens = jTextArea1.getText();
+    
+    // Abre o Carrinho com esses itens
+    Carrinho carrinhoFrame = new Carrinho(itens);
+    carrinhoFrame.setVisible(true);
+    
+    this.dispose(); // Fecha a tela atual
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -192,27 +308,7 @@ public class Elcacto extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Elcacto().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
