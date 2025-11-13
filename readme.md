@@ -1,4 +1,4 @@
-# Projeto FEIFood 🍽️
+# Projeto FEIFood 
 
 **Projeto acadêmico da disciplina CCP140 (Profa. Gabriela Biondi).**
 
@@ -8,7 +8,7 @@ O projeto foi desenvolvido seguindo a arquitetura **MVC (Model-View-Controller)*
 
 ---
 
-## 1. Tecnologias Utilizadas 🛠️
+## 1. Tecnologias Utilizadas 
 
 * **Linguagem:** Java (JDK 21)
 * **Interface Gráfica (GUI):** Java Swing
@@ -20,7 +20,7 @@ O projeto foi desenvolvido seguindo a arquitetura **MVC (Model-View-Controller)*
 
 ---
 
-## 2. Funcionalidades Implementadas 🚀
+## 2. Funcionalidades Implementadas 
 
 O sistema foi projetado para atender às funcionalidades essenciais de um aplicativo de delivery de comida, com foco no perfil do usuário.
 
@@ -51,7 +51,7 @@ O sistema foi projetado para atender às funcionalidades essenciais de um aplica
 
 ---
 
-## 3. Arquitetura do Projeto (MVC) 🏛️
+## 3. Arquitetura do Projeto (MVC) 
 
 O projeto é estruturado no padrão MVC (Model-View-Controller) e utiliza o padrão DAO (Data Access Object) para a camada de persistência.
 
@@ -103,7 +103,7 @@ O projeto segue o diagrama de classes fornecido na especificação:
 
 ---
 
-## 5. Configuração e Execução ⚙️
+## 5. Configuração e Execução 
 
 ### Pré-requisitos
 1.  **Java (JDK):** JDK 21 ou superior.
