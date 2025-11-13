@@ -6,17 +6,15 @@ package model;
 
 /**
  *
- * @author tex
+ * @author robotica
  */
-
-public class Alimento {
+public abstract class Alimento {
     private int codigoAlimento;
     private String estabelecimento;
-    private String alimento;
+    private String nome;
     private String tipo;
     private String informacoes;
     private double preco;
-    private boolean imposto;
     private String composicao;
 
     public int getCodigoAlimento() {
@@ -35,12 +33,12 @@ public class Alimento {
         this.estabelecimento = estabelecimento;
     }
 
-    public String getAlimento() {
-        return alimento;
+    public String getNome() {
+        return nome;
     }
 
-    public void setAlimento(String alimento) {
-        this.alimento = alimento;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getTipo() {
@@ -67,14 +65,6 @@ public class Alimento {
         this.preco = preco;
     }
 
-    public boolean isImposto() {
-        return imposto;
-    }
-
-    public void setImposto(boolean imposto) {
-        this.imposto = imposto;
-    }
-
     public String getComposicao() {
         return composicao;
     }
@@ -82,4 +72,7 @@ public class Alimento {
     public void setComposicao(String composicao) {
         this.composicao = composicao;
     }
+
+    // Método abstrato para exibir informações (opcional)
+    public abstract String exibirInfo();
 }

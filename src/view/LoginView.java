@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.sql.SQLException;
 import java.sql.Connection;
-import dao.ConnectionFactory;
+import dao.ConnectionDAO;
 import model.Usuario;
 
 

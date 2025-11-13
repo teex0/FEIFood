@@ -4,6 +4,11 @@
  */
 package view;
 
+import controller.PedidoControllerTrattoria;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 /**
  *
  * @author robotica
@@ -11,12 +16,14 @@ package view;
 public class Trattoria extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Trattoria.class.getName());
-
+    private PedidoControllerTrattoria controlePedido;
     /**
      * Creates new form Trattoria
      */
     public Trattoria() {
         initComponents();
+        this.controlePedido = new PedidoControllerTrattoria(this);
+        controlePedido.vListarAlimento();
     }
 
     /**
@@ -170,23 +177,26 @@ public class Trattoria extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Carrinho f2 = new Carrinho();
-        f2.setVisible(true);
+        // Pega tudo do textarea1 do Elcacto
+        String itens = jTextArea1.getText();
 
-        // Fecha o JFrame atual
-        this.dispose();
+        // Abre o Carrinho com esses itens
+        Carrinho carrinhoFrame = new Carrinho(itens);
+        carrinhoFrame.setVisible(true);
+
+        this.dispose(); // Fecha a tela atual
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        controlePedido.vRemoverCarrinho();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        controlePedido.vAdicionarCarrinho();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
@@ -215,4 +225,23 @@ public class Trattoria extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+            // getter elcacto
+    public JTextField getjTextField2() {
+        return jTextField2;
+    }
+
+    public JLabel getjLabel4() {
+        return jLabel4;
+    }
+
+    public JTextArea getjTextArea1() {
+        return jTextArea1;
+    }
+
+    public JTextArea getjTextArea3() {
+        return jTextArea3;
+    }
+
+
 }

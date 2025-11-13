@@ -6,17 +6,20 @@ package view;
 
 import dao.AvaliacaoDAO;
 import javax.swing.JOptionPane;
+import javax.swing.JSlider;
+import controller.*;
 
 /**
  *
  * @author tex
  */
 public class AvaliacaoView extends javax.swing.JFrame {
-        private int numeroPedido; // variável para armazenar o pedido atual
-
+    private int numeroPedido; // variável para armazenar o pedido atual
+    private AvaliacaoController controleAv;
     public AvaliacaoView(int numeroPedido) {
         this.numeroPedido = numeroPedido;
         initComponents();
+        this.controleAv = new AvaliacaoController(this);
     }
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AvaliacaoView.class.getName());
@@ -26,6 +29,7 @@ public class AvaliacaoView extends javax.swing.JFrame {
      */
     public AvaliacaoView() {
         initComponents();
+        this.controleAv = new AvaliacaoController(this);
     
     jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
         @Override
@@ -139,17 +143,7 @@ public class AvaliacaoView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    int nota = jSlider1.getValue(); // pega a nota do slider
-
-    AvaliacaoDAO dao = new AvaliacaoDAO();
-    dao.salvarAvaliacao(nota); // salva no banco
-
-    // Mostra pop-up de agradecimento
-    javax.swing.JOptionPane.showMessageDialog(this, "Obrigado pela sua avaliação!", "Avaliação Registrada", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-
-    // Abre a TelaPrincipalUsuarioView e fecha a AvaliacaoView
-    new TelaPrincipalUsuarioView().setVisible(true);
-    dispose();
+        controleAv.vAvaliar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -187,4 +181,13 @@ public class AvaliacaoView extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JSlider jSlider1;
     // End of variables declaration//GEN-END:variables
+
+    public JSlider getjSlider1() {
+        return jSlider1;
+    }
+
+    public int getNumeroPedido() {
+        return numeroPedido;
+    }
+
 }

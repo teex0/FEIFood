@@ -4,7 +4,7 @@
  */
 package controller;
 
-import dao.ConnectionFactory;
+import dao.ConnectionDAO;
 import dao.UsuarioDAO;
 import model.Usuario;
 import view.LoginView;

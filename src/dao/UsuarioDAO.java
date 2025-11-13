@@ -19,7 +19,7 @@ public class UsuarioDAO {
     public Usuario consultar(Usuario usuario) {
         String sql = "SELECT * FROM usuarios WHERE usuario = ? AND senha = ?";
 
-        try (Connection conn = ConnectionFactory.getConnection();
+        try (Connection conn = ConnectionDAO.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, usuario.getUsuario());

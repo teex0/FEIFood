@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+import controller.AlimentoController;
 import dao.AlimentoDAO;
 import model.Alimento;
 import java.util.List;
@@ -16,42 +17,43 @@ import javax.swing.*;
 public class BuscarAlimentoView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BuscarAlimentoView.class.getName());
-
+    private AlimentoController controleAlimento;
+    
     /**
      * Creates new form BuscarAlimentoView
      */
     public BuscarAlimentoView() {
         initComponents();
+        this.controleAlimento = new AlimentoController(this);
         
-        
-    
-    jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            new TelaPrincipalUsuarioView().setVisible(true);
-            dispose(); // opcional: fecha a tela atual
-        }
-    });
+
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new TelaPrincipalUsuarioView().setVisible(true);
+                dispose(); // opcional: fecha a tela atual
+            }
+        });
 
 
-    // 🟢 Exemplo: abrir perfil de usuário ao clicar no menu 5
-    jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            new Carrinho().setVisible(true);
-            dispose();
-        }
-    });
-        
-        
-    jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            new AvaliacaoView().setVisible(true);
-            dispose();
-        }
-    });
-}
+        // 🟢 Exemplo: abrir perfil de usuário ao clicar no menu 5
+        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new Carrinho().setVisible(true);
+                dispose();
+            }
+        });
+
+
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new AvaliacaoView().setVisible(true);
+                dispose();
+            }
+        });
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,11 +70,8 @@ public class BuscarAlimentoView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -114,26 +113,6 @@ public class BuscarAlimentoView extends javax.swing.JFrame {
             }
         });
 
-        jButton10.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/brasa e alma.png"))); // NOI18N
-        jButton10.setText("Brasa & Alma");
-        jButton10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-
-        jButton11.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/verde raiz.png"))); // NOI18N
-        jButton11.setText("Verde Raiz");
-        jButton11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
-
         jButton12.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/burguer.png"))); // NOI18N
         jButton12.setText("Route 66 burguer");
@@ -154,32 +133,18 @@ public class BuscarAlimentoView extends javax.swing.JFrame {
             }
         });
 
-        jButton14.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/deserto.png"))); // NOI18N
-        jButton14.setText("Sabores Do Deserto");
-        jButton14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                        .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -192,14 +157,8 @@ public class BuscarAlimentoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(312, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -240,38 +199,15 @@ public class BuscarAlimentoView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField1)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-            String nomeBusca = jTextField1.getText().trim();
-    if (nomeBusca.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Digite o nome do alimento para buscar!");
-        return;
-    }
-
-    AlimentoDAO dao = new AlimentoDAO();
-    List<Alimento> resultados = dao.buscarPorNome(nomeBusca);
-
-    if (resultados.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Nenhum alimento encontrado.");
-    } else {
-        StringBuilder sb = new StringBuilder("🍽️ Alimentos encontrados:\n\n");
-        for (Alimento a : resultados) {
-            sb.append(" - ")
-              .append(a.getAlimento())
-              .append(" (").append(a.getEstabelecimento()).append(")")
-              .append(" R$ ").append(a.getPreco())
-              .append("\n");
-        }
-
-        JOptionPane.showMessageDialog(this, sb.toString());
-    }
+        controleAlimento.vFieldText();
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -286,29 +222,11 @@ public class BuscarAlimentoView extends javax.swing.JFrame {
     this.dispose(); // Fecha o JFrame atual
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-    Verde verdeFrame = new Verde();
-    verdeFrame.setVisible(true);
-    this.dispose(); // Fecha o JFrame atual
-    }//GEN-LAST:event_jButton11ActionPerformed
-
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
     Burger burguerFrame = new Burger();
     burguerFrame.setVisible(true);
     this.dispose();
     }//GEN-LAST:event_jButton12ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-    Brasa brasaFrame = new Brasa();
-    brasaFrame.setVisible(true);
-    this.dispose();
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-    Deserto desertoFrame = new Deserto();
-    desertoFrame.setVisible(true);
-    this.dispose();
-    }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
     Sushi sushiFrame = new Sushi();
@@ -317,29 +235,7 @@ public class BuscarAlimentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    String nomeBusca = jTextField1.getText().trim();
-    if (nomeBusca.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Digite o nome do alimento para buscar!");
-        return;
-    }
-
-    AlimentoDAO dao = new AlimentoDAO();
-    List<Alimento> resultados = dao.buscarPorNome(nomeBusca);
-
-    if (resultados.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Nenhum alimento encontrado.");
-    } else {
-        // Monta uma mensagem com os restaurantes
-        StringBuilder sb = new StringBuilder("🍽️ O alimento '" + nomeBusca + "' está disponível em:\n\n");
-        for (Alimento a : resultados) {
-            sb.append(" - ").append(a.getEstabelecimento())
-              .append(" (").append(a.getAlimento()).append(")")
-              .append(" R$ ").append(a.getPreco())
-              .append("\n");
-        }
-        JOptionPane.showMessageDialog(this, sb.toString());
-    }
-
+        controleAlimento.vBuscarAlimento();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -369,11 +265,8 @@ public class BuscarAlimentoView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JMenu jMenu1;
@@ -385,4 +278,10 @@ public class BuscarAlimentoView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    public JTextField getjTextField1() {
+        return jTextField1;
+    }
+
+    
 }

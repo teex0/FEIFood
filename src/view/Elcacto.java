@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+import controller.PedidoController;
 import dao.AlimentoDAO;
 import model.Alimento;
 import javax.swing.*;
@@ -14,6 +15,7 @@ import java.util.List;
  * @author robotica
  */
 public class Elcacto extends javax.swing.JFrame {
+    private PedidoController controlePedido;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Elcacto.class.getName());
 
@@ -22,26 +24,9 @@ public class Elcacto extends javax.swing.JFrame {
      */
     public Elcacto() {
         initComponents();
-    AlimentoDAO dao = new AlimentoDAO();
-    List<Alimento> itens = dao.buscarPorRestaurante("El Cacto"); // nome exato do restaurante
-
-    if (itens.isEmpty()) {
-        jTextArea3.setText("Nenhum alimento encontrado neste restaurante.");
-    } else {
-        StringBuilder sb = new StringBuilder();
-        sb.append("ID  -  Nome (Tipo) - Preço\n"); // cabeçalho
-        sb.append("-------------------------------\n");
-        for (Alimento a : itens) {
-            sb.append(a.getCodigoAlimento()) // aqui é o ID
-              .append(" - ")
-              .append(a.getAlimento())
-              .append(" (").append(a.getTipo()).append(")")
-              .append(" - R$ ").append(a.getPreco())
-              .append("\n");
-        }
-        jTextArea3.setText(sb.toString());
+        this.controlePedido = new PedidoController(this);
+        controlePedido.vListarAlimento();
     }
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -192,100 +177,11 @@ public class Elcacto extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       String textoId = jTextField2.getText().trim();
-    if (textoId.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Digite o ID do produto para excluir!");
-        return;
-    }
-
-    int idProduto;
-    try {
-        idProduto = Integer.parseInt(textoId);
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "ID inválido! Digite um número.");
-        return;
-    }
-
-    AlimentoDAO dao = new AlimentoDAO();
-    Alimento produto = dao.buscarPorId(idProduto); // método já criado no DAO
-
-    if (produto == null) {
-        JOptionPane.showMessageDialog(this, "Produto não encontrado!");
-        return;
-    }
-
-    // Remove do JTextArea do carrinho
-    String[] linhas = jTextArea1.getText().split("\n");
-    StringBuilder novoTexto = new StringBuilder();
-    boolean encontrado = false;
-    double total = 0.0;
-
-    for (String linha : linhas) {
-        if (linha.isBlank()) continue;
-
-        // Compara o nome do produto (mesma lógica do append)
-        if (linha.startsWith(produto.getAlimento() + " - R$")) {
-            encontrado = true;
-            continue; // pula esta linha
-        }
-
-        novoTexto.append(linha).append("\n");
-
-        // Atualiza o total
-        if (linha.contains("R$")) {
-            String precoStr = linha.substring(linha.indexOf("R$") + 2).trim();
-            total += Double.parseDouble(precoStr);
-        }
-    }
-
-    if (encontrado) {
-        jTextArea1.setText(novoTexto.toString());
-        jLabel4.setText("Total: R$ " + total);
-        JOptionPane.showMessageDialog(this, "Produto removido do carrinho!");
-    } else {
-        JOptionPane.showMessageDialog(this, "Produto não estava no carrinho!");
-    }
-
-    jTextField2.setText("");
+        controlePedido.vRemoverCarrinho();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       String textoId = jTextField2.getText().trim();
-    if (textoId.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Digite o ID do produto para adicionar!");
-        return;
-    }
-
-    int idProduto;
-    try {
-        idProduto = Integer.parseInt(textoId);
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "ID inválido! Digite um número.");
-        return;
-    }
-
-    AlimentoDAO dao = new AlimentoDAO();
-    Alimento produto = dao.buscarPorId(idProduto); // método que vamos criar
-
-    if (produto == null) {
-        JOptionPane.showMessageDialog(this, "Produto não encontrado!");
-    } else {
-        // Adiciona no JTextArea do carrinho
-        String itemCarrinho = produto.getAlimento() + " - R$ " + produto.getPreco() + "\n";
-        jTextArea1.append(itemCarrinho);
-
-        // Opcional: atualizar total
-        double total = 0.0;
-        String[] linhas = jTextArea1.getText().split("\n");
-        for (String linha : linhas) {
-            if (!linha.isBlank() && linha.contains("R$")) {
-                String precoStr = linha.substring(linha.indexOf("R$") + 2).trim();
-                total += Double.parseDouble(precoStr);
-            }
-        }
-        jLabel4.setText("Total: R$ " + total);
-    }
-
+        controlePedido.vAdicionarCarrinho();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -331,4 +227,21 @@ public class Elcacto extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+    // getter elcacto
+    public JTextField getjTextField2() {
+        return jTextField2;
+    }
+
+    public JLabel getjLabel4() {
+        return jLabel4;
+    }
+
+    public JTextArea getjTextArea1() {
+        return jTextArea1;
+    }
+
+    public JTextArea getjTextArea3() {
+        return jTextArea3;
+    }
 }

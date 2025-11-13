@@ -22,7 +22,7 @@ public class AvaliacaoDAO {
     public int salvarAvaliacao(int nota) {
         String sql = "INSERT INTO avaliacoes (nota) VALUES (?) RETURNING numero_pedido";
         
-        try (Connection conn = ConnectionFactory.getConnection();
+        try (Connection conn = ConnectionDAO.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, nota);

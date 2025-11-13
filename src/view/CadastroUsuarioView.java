@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.sql.SQLException;
 import java.sql.Connection;
-import dao.ConnectionFactory;
+import dao.ConnectionDAO;
 import model.Usuario;
 import java.sql.PreparedStatement;
 
@@ -147,7 +147,7 @@ public class CadastroUsuarioView extends javax.swing.JFrame {
         return;
     }
 
-    try (Connection conn = ConnectionFactory.getConnection()) {
+    try (Connection conn = ConnectionDAO.getConnection()) {
         String sql = "INSERT INTO usuarios (nome, usuario, senha) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, nome);

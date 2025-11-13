@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionFactory {
+public class ConnectionDAO {
 
     private static final String URL = "jdbc:postgresql://ep-lucky-shape-aco9469o-pooler.sa-east-1.aws.neon.tech/neondb?sslmode=require";
     private static final String USER = "neondb_owner";
